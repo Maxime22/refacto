@@ -44,7 +44,7 @@ class TemplateManager
          */
         $quote = $this->checkIfQuoteInData($data);
         if ($quote) {
-            $quoteManager = new QuoteManager($quote);
+            $quoteManager = new QuoteReplacer($quote);
             $text = $quoteManager->replaceProcess($text);
         }
 
@@ -54,7 +54,7 @@ class TemplateManager
          */
         $user  = $this->checkIfUserInData($data);
         if ($user) {
-            $userManager = new UserManager($user);
+            $userManager = new UserReplacer($user);
             $text = $userManager->replaceProcess($text);
         }
 

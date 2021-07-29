@@ -6,7 +6,7 @@ use Entity\Destination;
 use Repository\SiteRepository;
 use Repository\DestinationRepository;
 
-class QuoteManager
+class QuoteReplacer implements ReplacerInterface
 {
     /**
      * @var Quote $quote

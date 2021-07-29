@@ -2,7 +2,7 @@
 
 use Entity\User;
 
-class UserManager
+class UserReplacer implements ReplacerInterface
 {
     /**
      * @var User $user
