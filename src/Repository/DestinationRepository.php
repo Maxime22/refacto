@@ -1,5 +1,9 @@
 <?php
 
+namespace Repository;
+use Helper\SingletonTrait;
+use Entity\Destination;
+
 class DestinationRepository implements Repository
 {
     use SingletonTrait;
@@ -13,7 +17,7 @@ class DestinationRepository implements Repository
     {
         // DO NOT MODIFY THIS METHOD
 
-        $faker = Faker\Factory::create();
+        $faker = \Faker\Factory::create();
         $faker->seed($id);
 
         return new Destination(
