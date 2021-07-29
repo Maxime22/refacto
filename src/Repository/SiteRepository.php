@@ -3,7 +3,7 @@
 namespace Repository;
 use Entity\Site;
 
-class SiteRepository implements Repository
+class SiteRepository implements RepositoryInterface
 {
     /**
      * @param int $id

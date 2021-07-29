@@ -1,10 +1,9 @@
 <?php
 
 namespace Repository;
-use Helper\SingletonTrait;
 use Entity\Quote;
 
-class QuoteRepository implements Repository
+class QuoteRepository implements RepositoryInterface
 {
     /**
      * @param int $id
