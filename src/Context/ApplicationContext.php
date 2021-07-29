@@ -22,12 +22,12 @@ class ApplicationContext
         $this->currentUser = new User($faker->randomNumber(), $faker->firstName, $faker->lastName, $faker->email);
     }
 
-    public function getCurrentSite()
+    public function getCurrentSite(): Site
     {
         return $this->currentSite;
     }
 
-    public function getCurrentUser()
+    public function getCurrentUser(): User
     {
         return $this->currentUser;
     }

@@ -2,6 +2,7 @@
 
 namespace Repository;
 use Entity\Destination;
+use Repository\RepositoryInterface;
 
 class DestinationRepository implements RepositoryInterface
 {
@@ -10,7 +11,7 @@ class DestinationRepository implements RepositoryInterface
      *
      * @return Destination
      */
-    public function getById($id)
+    public function getById(int $id): Destination
     {
         // DO NOT MODIFY THIS METHOD
 

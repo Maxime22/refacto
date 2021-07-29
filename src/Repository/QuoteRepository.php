@@ -2,6 +2,7 @@
 
 namespace Repository;
 use Entity\Quote;
+use Repository\RepositoryInterface;
 
 class QuoteRepository implements RepositoryInterface
 {

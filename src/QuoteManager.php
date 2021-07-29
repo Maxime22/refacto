@@ -1,12 +1,16 @@
 <?php
 
+use Entity\Site;
 use Entity\Quote;
+use Entity\Destination;
 use Repository\SiteRepository;
 use Repository\DestinationRepository;
 
 class QuoteManager
 {
-
+    /**
+     * @var Quote $quote
+     */
     private $quote;
 
     public function __construct(Quote $quote)
@@ -14,7 +18,7 @@ class QuoteManager
         $this->quote = $quote;
     }
 
-    public function process($text)
+    public function replaceProcess(string $text): string
     {
         $site = (new SiteRepository())->getById($this->quote->siteId);
         $destination = (new DestinationRepository())->getById($this->quote->destinationId);
@@ -27,7 +31,7 @@ class QuoteManager
         return $text;
     }
 
-    public function replaceQuoteSummaryHtml($text, $quote)
+    public function replaceQuoteSummaryHtml(string $text, Quote $quote): string
     {
         if (strpos($text, '[quote:summary_html]')) {
             $text = str_replace(
@@ -39,7 +43,7 @@ class QuoteManager
         return $text;
     }
 
-    public function replaceQuoteSummary($text, $quote)
+    public function replaceQuoteSummary(string $text, Quote $quote): string
     {
         if (strpos($text, '[quote:summary]')) {
             $text = str_replace(
@@ -51,7 +55,7 @@ class QuoteManager
         return $text;
     }
 
-    public function replaceQuoteDestinationName($text, $destination)
+    public function replaceQuoteDestinationName(string $text, Destination $destination): string
     {
         if (strpos($text, '[quote:destination_name]')) {
             $text = str_replace('[quote:destination_name]', $destination->countryName, $text);
@@ -59,10 +63,10 @@ class QuoteManager
         return $text;
     }
 
-    public function replaceQuoteDestinationLink($text, $destination, $quote, $site)
+    public function replaceQuoteDestinationLink(string $text, Destination $destination, Quote $quote, Site $site): string
     {
         if (strpos($text, '[quote:destination_link]')) {
-            $text = isset($destination) ? str_replace('[quote:destination_link]', $site->url . '/' . $destination->countryName . '/quote/' . $quote->id, $text) : str_replace('[quote:destination_link]', '', $text);
+            $text = str_replace('[quote:destination_link]', $site->url . '/' . $destination->countryName . '/quote/' . $quote->id, $text);
         }
         return $text;
     }

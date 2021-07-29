@@ -7,6 +7,9 @@ use Context\ApplicationContext;
 
 class TemplateManager
 {
+    /**
+     * @var ApplicationContext $applicationContext
+     */
     private $applicationContext;
 
     public function __construct(ApplicationContext $applicationContext)
@@ -14,6 +17,9 @@ class TemplateManager
         $this->applicationContext = $applicationContext;
     }
 
+    /**
+     * @param array<mixed> $data
+     */
     public function getTemplateComputed(Template $tpl, array $data)
     {
         if (!$tpl) {
@@ -27,8 +33,10 @@ class TemplateManager
         return $replaced;
     }
 
-
-    protected function computeText($text, array $data)
+    /**
+     * @param array<mixed> $data
+     */
+    protected function computeText(string $text, array $data): string
     {
         /*
          * QUOTE
@@ -37,7 +45,7 @@ class TemplateManager
         $quote = $this->checkIfQuoteInData($data);
         if ($quote) {
             $quoteManager = new QuoteManager($quote);
-            $text = $quoteManager->process($text);
+            $text = $quoteManager->replaceProcess($text);
         }
 
         /*
@@ -47,18 +55,24 @@ class TemplateManager
         $user  = $this->checkIfUserInData($data);
         if ($user) {
             $userManager = new UserManager($user);
-            $text = $userManager->process($text);
+            $text = $userManager->replaceProcess($text);
         }
 
         return $text;
     }
 
-    public function checkIfQuoteInData($data)
+    /**
+     * @param array<mixed> $data
+     */
+    public function checkIfQuoteInData(array $data)
     {
         return (isset($data['quote']) and $data['quote'] instanceof Quote) ? $data['quote'] : null;
     }
 
-    public function checkIfUserInData($data)
+    /**
+     * @param array<mixed> $data
+     */
+    public function checkIfUserInData(array $data)
     {
         return (isset($data['user'])  and ($data['user']  instanceof User))  ? $data['user']  : $this->applicationContext->getCurrentUser();
     }

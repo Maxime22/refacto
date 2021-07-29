@@ -2,6 +2,7 @@
 
 namespace Repository;
 use Entity\Site;
+use Repository\RepositoryInterface;
 
 class SiteRepository implements RepositoryInterface
 {

@@ -2,9 +2,11 @@
     "require": {
         "php": "^5.5.9|^7.0",
         "fzaninotto/faker": "v1.6.0"
+        
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8|^5.7"
+        "phpunit/phpunit": "^4.8|^5.7",
+        "phpstan/phpstan": "^0.12.93"
     },
     "autoload": {
         "psr-4": {

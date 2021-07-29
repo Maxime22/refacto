@@ -4,5 +4,6 @@ namespace Repository;
 
 interface RepositoryInterface
 {
-    public function getById($id);
+
+    public function getById(int $id);
 }
