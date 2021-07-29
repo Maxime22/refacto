@@ -1,10 +1,9 @@
 <?php
 
 namespace Repository;
-use Helper\SingletonTrait;
 use Entity\Destination;
 
-class DestinationRepository implements Repository
+class DestinationRepository implements RepositoryInterface
 {
     /**
      * @param int $id
