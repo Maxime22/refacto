@@ -1,13 +1,10 @@
 <?php
 
 namespace Repository;
-use Helper\SingletonTrait;
 use Entity\Site;
 
 class SiteRepository implements Repository
 {
-    use SingletonTrait;
-
     /**
      * @param int $id
      *

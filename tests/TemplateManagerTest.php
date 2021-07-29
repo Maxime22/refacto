@@ -1,6 +1,14 @@
 <?php
 
-require_once __DIR__ . '/../src/Entity/Destination.php';
+namespace Tests;
+
+use Entity\Quote;
+use Entity\Template;
+use TemplateManager;
+use Context\ApplicationContext;
+use Repository\DestinationRepository;
+
+/* require_once __DIR__ . '/../src/Entity/Destination.php';
 require_once __DIR__ . '/../src/Entity/Quote.php';
 require_once __DIR__ . '/../src/Entity/Site.php';
 require_once __DIR__ . '/../src/Entity/Template.php';
@@ -11,9 +19,9 @@ require_once __DIR__ . '/../src/Repository/Repository.php';
 require_once __DIR__ . '/../src/Repository/DestinationRepository.php';
 require_once __DIR__ . '/../src/Repository/QuoteRepository.php';
 require_once __DIR__ . '/../src/Repository/SiteRepository.php';
-require_once __DIR__ . '/../src/TemplateManager.php';
+require_once __DIR__ . '/../src/TemplateManager.php'; */
 
-class TemplateManagerTest extends PHPUnit_Framework_TestCase
+class TemplateManagerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Init the mocks
@@ -35,11 +43,11 @@ class TemplateManagerTest extends PHPUnit_Framework_TestCase
     public function test()
     {
         $faker = \Faker\Factory::create();
-
-        $expectedDestination = DestinationRepository::getInstance()->getById($faker->randomNumber());
-        $expectedUser = ApplicationContext::getInstance()->getCurrentUser();
+        $applicationContext = new ApplicationContext();
+        $expectedUser = $applicationContext->getCurrentUser();
 
         $quote = new Quote($faker->randomNumber(), $faker->randomNumber(), $faker->randomNumber(), $faker->date());
+        $expectedDestination = (new DestinationRepository)->getById($quote->getDestinationId());
 
         $template = new Template(
             1,
@@ -54,7 +62,7 @@ Bien cordialement,
 L'équipe Evaneos.com
 www.evaneos.com
 ");
-        $templateManager = new TemplateManager();
+        $templateManager = new TemplateManager($applicationContext);
 
         $message = $templateManager->getTemplateComputed(
             $template,

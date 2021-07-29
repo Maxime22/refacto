@@ -3,12 +3,9 @@
 namespace Context;
 use Entity\Site;
 use Entity\User;
-use Helper\SingletonTrait;
 
 class ApplicationContext
 {
-    use SingletonTrait;
-
     /**
      * @var Site
      */
@@ -18,7 +15,7 @@ class ApplicationContext
      */
     private $currentUser;
 
-    protected function __construct()
+    public function __construct()
     {
         $faker = \Faker\Factory::create();
         $this->currentSite = new Site($faker->randomNumber(), $faker->url);

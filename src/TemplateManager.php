@@ -10,6 +10,12 @@ use Entity\User;
 
 class TemplateManager
 {
+    private $applicationContext;
+
+    public function __construct(ApplicationContext $applicationContext){
+        $this->applicationContext = $applicationContext;
+    }
+
     public function getTemplateComputed(Template $tpl, array $data)
     {
         if (!$tpl) {
@@ -23,20 +29,20 @@ class TemplateManager
         return $replaced;
     }
 
-    private function computeText($text, array $data)
+    private function computeText($text, array $data): mixed
     {
-        $APPLICATION_CONTEXT = ApplicationContext::getInstance();
-
         $quote = (isset($data['quote']) and $data['quote'] instanceof Quote) ? $data['quote'] : null;
 
         if ($quote)
         {
-            $_quoteFromRepository = QuoteRepository::getInstance()->getById($quote->id);
-            $usefulObject = SiteRepository::getInstance()->getById($quote->siteId);
-            $destinationOfQuote = DestinationRepository::getInstance()->getById($quote->destinationId);
+            $_quoteFromRepository = (new QuoteRepository())->getById($quote->id);
+            $usefulObject = (new SiteRepository())->getById($quote->siteId);
+
+            $destinationRepository = new DestinationRepository();
+            $destinationOfQuote = $destinationRepository->getById($quote->destinationId);
 
             if(strpos($text, '[quote:destination_link]') !== false){
-                $destination = DestinationRepository::getInstance()->getById($quote->destinationId);
+                $destination = $destinationRepository->getById($quote->destinationId);
             }
 
             $containsSummaryHtml = strpos($text, '[quote:summary_html]');
@@ -71,7 +77,7 @@ class TemplateManager
          * USER
          * [user:*]
          */
-        $_user  = (isset($data['user'])  and ($data['user']  instanceof User))  ? $data['user']  : $APPLICATION_CONTEXT->getCurrentUser();
+        $_user  = (isset($data['user'])  and ($data['user']  instanceof User))  ? $data['user']  : $this->applicationContext->getCurrentUser();
         if($_user) {
             (strpos($text, '[user:first_name]') !== false) and $text = str_replace('[user:first_name]'       , ucfirst(mb_strtolower($_user->firstname)), $text);
         }

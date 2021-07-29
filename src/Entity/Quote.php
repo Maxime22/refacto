@@ -26,4 +26,8 @@ class Quote
     {
         return (string) $quote->id;
     }
+
+    public function getDestinationId(): int{
+        return $this->destinationId;
+    }
 }

@@ -12,4 +12,8 @@ class Site
         $this->id = $id;
         $this->url = $url;
     }
+
+    public function getId(): int{
+        return $this->id;
+    }
 }

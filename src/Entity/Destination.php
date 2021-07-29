@@ -17,4 +17,8 @@ class Destination
         $this->conjunction = $conjunction;
         $this->computerName = $computerName;
     }
+
+    public function getId(): int{
+        return $this->id;
+    }
 }
